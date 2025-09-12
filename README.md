@@ -4,15 +4,15 @@ Google Apps ScriptとGoogleスプレッドシート関数の学習リソース�
 
 ## 📚 コンテンツ一覧
 
-### 🎯 [AIを味方につけよう！GASで業務自動化スライド](https://yamamoto-miyuna.github.io/gas-learning-resources/)
+### 🎯 [AIを味方につけよう！GASで業務自動化スライド](https://myn0306.github.io/gas-learning-resources/)
 - AIとGoogle Apps Scriptを活用した業務自動化の学習用スライド
 - 初心者向けの実践的な内容
 
-### 📝 [GAS お作法一覧表](https://yamamoto-miyuna.github.io/gas-learning-resources/gas-best-practices.html)
+### 📝 [GAS お作法一覧表](https://myn0306.github.io/gas-learning-resources/gas-best-practices.html)
 - Google Apps Script開発のベストプラクティス18項目
 - セキュリティから効率化まで網羅
 
-### 📊 [Googleスプレッドシート関数 お作法一覧表](https://yamamoto-miyuna.github.io/gas-learning-resources/sheets-functions-guide.html)
+### 📊 [Googleスプレッドシート関数 お作法一覧表](https://myn0306.github.io/gas-learning-resources/sheets-functions-guide.html)
 - スプレッドシート関数の効率的な使い方18項目
 - 初心者からJavaScript経験者まで対応
 
