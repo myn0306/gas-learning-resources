@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAS お作法一覧表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Meiryo', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #4285f4 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
+            height: 8px;
+        }
+
+        .title-section {
+            padding: 40px;
+            text-align: center;
+            border-bottom: 2px solid #f1f3f4;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4285f4;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #5f6368;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaed 100%);
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 5px;
+        }
+
+        .section-description {
+            font-size: 1rem;
+            color: #5f6368;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e8eaed;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .basic .item {
+            border-left: 6px solid #34a853;
+        }
+
+        .advanced .item {
+            border-left: 6px solid #fbbc04;
+        }
+
+        .ai .item {
+            border-left: 6px solid #4285f4;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .item-number {
+            background: #4285f4;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .basic .item-number {
+            background: #34a853;
+        }
+
+        .advanced .item-number {
+            background: #fbbc04;
+        }
+
+        .ai .item-number {
+            background: #4285f4;
+        }
+
+        .item-title {
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            flex-grow: 1;
+            margin-left: 12px;
+        }
+
+        .priority-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-required {
+            background: #fce8e6;
+            color: #d73025;
+        }
+
+        .priority-recommended {
+            background: #fef7e0;
+            color: #ea8600;
+        }
+
+        .priority-optional {
+            background: #e8f0fe;
+            color: #1a73e8;
+        }
+
+        .item-description {
+            color: #5f6368;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        .good-example {
+            border-left: 4px solid #34a853;
+            background: #f0f9ff;
+        }
+
+        .bad-example {
+            border-left: 4px solid #ea4335;
+            background: #fef7f0;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            color: #5f6368;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #5f6368;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"></div>
+        <div class="logo">Google Apps Script</div>
+
+        <div class="title-section">
+            <h1 class="main-title">GAS お作法一覧表</h1>
+            <p class="subtitle">Google Apps Script開発のベストプラクティス完全ガイド</p>
+        </div>
+
+        <div class="content">
+            <!-- 基本編 -->
+            <div class="section basic">
+                <div class="section-header">
+                    <span class="section-icon">🟢</span>
+                    <div>
+                        <h2 class="section-title">基本編（まずはここから）</h2>
+                        <p class="section-description">GAS開発の基礎となる重要な10項目</p>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">1</div>
+                            <div class="item-title">名前はわかりやすく</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            関数や変数は「何をする/何が入るか」が分かる名前に。<br>
+                            コードの可読性と保守性が大幅に向上します。
+                        </div>
+                        <div class="code-example good-example">良い例:
+function sendEmailNotification()
+const userEmailAddress = "user@example.com"
+
+悪い例:
+function func1()
+const a = "user@example.com"</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">2</div>
+                            <div class="item-title">コメントで説明を書く</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            「なぜこの処理をしているのか」を残す。<br>
+                            将来の自分や他の開発者が理解しやすくなります。
+                        </div>
+                        <div class="code-example">// フォーム送信時に重複チェックを行う
+// 同じメールアドレスでの複数回答を防ぐため
+function checkDuplicateSubmission()</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">3</div>
+                            <div class="item-title">エラー対策を入れる</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            try/catchで万一失敗しても止まらず、原因を残せるようにする。<br>
+                            本番環境での予期しないエラーを防げます。
+                        </div>
+                        <div class="code-example">try {
+  // 処理内容
+} catch (error) {
+  console.log('エラー:', error.toString());
+  // ログシートに記録など
+}</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">4</div>
+                            <div class="item-title">大事な情報は金庫に保存</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            APIキーやWebhook URLはプロパティサービスに保存。<br>
+                            セキュリティリスクを大幅に軽減できます。
+                        </div>
+                        <div class="code-example">// 設定
+PropertiesService.getScriptProperties()
+  .setProperty('API_KEY', 'your-key');
+
+// 取得
+const apiKey = PropertiesService
+  .getScriptProperties().getProperty('API_KEY');</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">5</div>
+                            <div class="item-title">処理は小さく分担する</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            1つの関数＝1つの役割に分ける。<br>
+                            デバッグが容易になり、再利用性も向上します。
+                        </div>
+                        <div class="code-example">function processFormSubmission() {
+  const data = getFormData();
+  validateData(data);
+  saveToSheet(data);
+  sendNotification(data);
+}</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">6</div>
+                            <div class="item-title">無駄を減らす（まとめて処理）</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            getValues/setValuesで一括操作。<br>
+                            実行時間を大幅に短縮できます。
+                        </div>
+                        <div class="code-example good-example">良い例:
+const values = sheet.getRange('A1:C100').getValues();</div>
+                        <div class="code-example bad-example">悪い例:
+for (let i = 1; i <= 100; i++) {
+  sheet.getRange(i, 1).getValue();
+}</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">7</div>
+                            <div class="item-title">マジックナンバー禁止</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            定数にして「意味」を名前で表す。<br>
+                            コードの意図が明確になり、変更も容易になります。
+                        </div>
+                        <div class="code-example good-example">良い例:
+const EMAIL_COLUMN = 2;
+const MAX_RETRY_COUNT = 3;</div>
+                        <div class="code-example bad-example">悪い例:
+if (retryCount > 3) { ... }
+sheet.getRange(1, 2).getValue();</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">8</div>
+                            <div class="item-title">シート名や範囲を直書きしない</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            定数やプロパティにまとめる。<br>
+                            シート構成の変更に柔軟に対応できます。
+                        </div>
+                        <div class="code-example">const SHEET_NAMES = {
+  RESPONSES: 'フォーム回答',
+  LOG: 'ログ'
+};
+const sheet = ss.getSheetByName(SHEET_NAMES.RESPONSES);</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">9</div>
+                            <div class="item-title">データが空でも動くように</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            if (!data) return; で例外処理。<br>
+                            予期しないエラーを防ぎ、安定性が向上します。
+                        </div>
+                        <div class="code-example">function processData(data) {
+  if (!data || data.length === 0) {
+    console.log('データが空です');
+    return;
+  }
+  // 処理続行
+}</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">10</div>
+                            <div class="item-title">テスト関数を作る</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            本番トリガー前にtest_〇〇()で試す。<br>
+                            本番環境での問題を事前に発見できます。
+                        </div>
+                        <div class="code-example">function test_sendNotification() {
+  const testData = {
+    email: 'test@example.com',
+    name: 'テストユーザー'
+  };
+  sendNotification(testData);
+}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 応用編 -->
+            <div class="section advanced">
+                <div class="section-header">
+                    <span class="section-icon">🟡</span>
+                    <div>
+                        <h2 class="section-title">応用編（慣れてきたら）</h2>
+                        <p class="section-description">より高度な開発技術とベストプラクティス</p>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">11</div>
+                            <div class="item-title">グローバル変数を乱用しない</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            どこからでも触れる変数は混乱の元。<br>
+                            関数に渡して使い、スコープを明確にします。
+                        </div>
+                        <div class="code-example good-example">良い例:
+function processSheet(sheetName, config) {
+  // 引数として受け取る
+}</div>
+                        <div class="code-example bad-example">悪い例:
+var globalSheet; // グローバル変数
+function processSheet() { ... }</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">12</div>
+                            <div class="item-title">実行時間制限を意識する</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            6分ルールを意識し、大量処理は分割する。<br>
+                            タイムアウトエラーを防げます。
+                        </div>
+                        <div class="code-example">function processBatch(startRow, batchSize = 100) {
+  const endRow = Math.min(startRow + batchSize, lastRow);
+  // バッチ処理
+  if (endRow < lastRow) {
+    // 次のバッチをトリガー設定
+  }
+}</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">13</div>
+                            <div class="item-title">トリガー設計を工夫する</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            フォーム送信、時間ベースなど適切に使い分ける。<br>
+                            効率的で安定した自動化が実現できます。
+                        </div>
+                        <div class="code-example">// フォーム送信時
+ScriptApp.newTrigger('onFormSubmit')
+  .onFormSubmit().create();
+
+// 定期実行（毎日9時）
+ScriptApp.newTrigger('dailyReport')
+  .timeBased().everyDays(1)
+  .atHour(9).create();</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">14</div>
+                            <div class="item-title">ログを残す仕組みを持つ</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            console.logだけでなく「ログシート」を作成。<br>
+                            運用時の問題調査が格段に楽になります。
+                        </div>
+                        <div class="code-example">function writeLog(level, message, data = null) {
+  const logSheet = ss.getSheetByName('ログ');
+  logSheet.appendRow([
+    new Date(), level, message,
+    JSON.stringify(data)
+  ]);
+}</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">15</div>
+                            <div class="item-title">例外ケースを想定して書く</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            未入力やシートが存在しない場合を考慮。<br>
+                            あらゆる状況で安定動作します。
+                        </div>
+                        <div class="code-example">function getSheet(name) {
+  const sheet = ss.getSheetByName(name);
+  if (!sheet) {
+    throw new Error(`シート「${name}」が見つかりません`);
+  }
+  return sheet;
+}</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">16</div>
+                            <div class="item-title">バージョン管理をする</div>
+                            <span class="priority-badge priority-optional">任意</span>
+                        </div>
+                        <div class="item-description">
+                            claspやGitHubでコードを管理。<br>
+                            変更履歴の追跡と復元が可能になります。
+                        </div>
+                        <div class="code-example"># clasp使用例
+npm install -g @google/clasp
+clasp login
+clasp create "プロジェクト名"
+clasp push # アップロード
+clasp pull # ダウンロード</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">17</div>
+                            <div class="item-title">公開範囲を適切に制御</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            Webアプリは「誰でも」公開せず必要最小限に。<br>
+                            セキュリティリスクを最小化できます。
+                        </div>
+                        <div class="code-example">推奨設定:
+• 実行者: 自分
+• アクセス: 組織内のユーザー
+• または特定のユーザーのみ
+
+避けるべき:
+• アクセス: 全員（匿名ユーザーを含む）</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AIと協力編 -->
+            <div class="section ai">
+                <div class="section-header">
+                    <span class="section-icon">🔵</span>
+                    <div>
+                        <h2 class="section-title">AIと協力編（効率的に作るために）</h2>
+                        <p class="section-description">AI活用による開発効率化のテクニック</p>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">18</div>
+                            <div class="item-title">自然文でAIに伝える</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            やりたいことを具体的に自然文で説明。<br>
+                            AIがより適切なコードを生成してくれます。
+                        </div>
+                        <div class="code-example">良い依頼例:
+「Googleフォームの回答を自動でスプレッドシートに保存し、
+新しい回答があったらSlackの#通知チャンネルに
+『新しい申込みがありました: [名前]さん』
+というメッセージを送信したい」
+
+その他のコツ:
+• エラー文をそのままコピペして解決依頼
+• 小さいステップで段階的に進める
+• 「効率化できますか？」で改善提案を求める
+• テストデータ作成もAIに依頼可能</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            効率的で安全なGAS開発により、より良い自動化システムを構築しましょう！<br>
+            各項目を段階的に習得し、プロジェクトの規模に応じて適用してください。
+        </div>
+    </div>
+</body>
+</html>
