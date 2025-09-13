@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Apps Script & Spreadsheet 学習リソース</title>
+    <meta name="description" content="Google Apps ScriptとGoogleスプレッドシート関数の学習リソース集">
+    <meta property="og:title" content="GAS & Spreadsheet 学習リソース">
+    <meta property="og:description" content="効率的な業務自動化を学ぶための包括的なガイド">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Meiryo', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #4285f4 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
+            height: 8px;
+        }
+
+        .hero-section {
+            padding: 60px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaed 100%);
+            border-bottom: 2px solid #f1f3f4;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #4285f4;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #5f6368;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .author {
+            font-size: 1.1rem;
+            color: #3c4043;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid #f1f3f4;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            border-color: #4285f4;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            color: #5f6368;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .card-features li {
+            color: #5f6368;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .card-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #34a853;
+            font-weight: 700;
+        }
+
+        .card-button {
+            display: inline-flex;
+            align-items: center;
+            background: #4285f4;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card-button:hover {
+            background: #1a73e8;
+            transform: translateY(-2px);
+        }
+
+        .card-button.secondary {
+            background: #f8f9fa;
+            color: #5f6368;
+            border: 1px solid #dadce0;
+        }
+
+        .card-button.secondary:hover {
+            background: #e8eaed;
+            color: #3c4043;
+        }
+
+        .usage-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .usage-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .usage-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4285f4;
+        }
+
+        .usage-item h4 {
+            color: #3c4043;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .usage-item p {
+            color: #5f6368;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .download-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 20px;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            background: #1a73e8;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .download-button:hover {
+            background: #174ea6;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #e8eaed;
+            color: #5f6368;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #4285f4;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-section, .content {
+                padding: 30px 20px;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"></div>
+
+        <div class="hero-section">
+            <h1 class="main-title">Google Apps Script & Spreadsheet<br>学習リソース</h1>
+            <p class="subtitle">AIを活用した効率的な業務自動化を学ぶための<br>包括的なガイド集</p>
+            <div class="author">制作者：山本美優奈</div>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">📚 学習リソース一覧</h2>
+            
+            <div class="resources-grid">
+                <!-- AIスライド -->
+                <div class="resource-card">
+                    <span class="card-icon">🎯</span>
+                    <h3 class="card-title">AIを味方につけよう！<br>GASで業務自動化スライド</h3>
+                    <p class="card-description">
+                        AIとGoogle Apps Scriptを活用した業務自動化の学習用プレゼンテーション。実践的な内容で初心者でも安心して学べます。
+                    </p>
+                    <ul class="card-features">
+                        <li>15枚の包括的なスライド</li>
+                        <li>AI活用のコツと実践例</li>
+                        <li>段階的な学習プロセス</li>
+                        <li>トラブルシューティング方法</li>
+                    </ul>
+                    <a href="ai-gas-slides.html" class="card-button">スライドを見る</a>
+                    <a href="https://raw.githubusercontent.com/myn0306/gas-learning-resources/main/ai-gas-slides.html" class="card-button secondary">ダウンロード</a>
+                </div>
+
+                <!-- GASお作法 -->
+                <div class="resource-card">
+                    <span class="card-icon">📝</span>
+                    <h3 class="card-title">GAS お作法一覧表</h3>
+                    <p class="card-description">
+                        Google Apps Script開発のベストプラクティスを18項目にまとめた実用的なリファレンスガイド。
+                    </p>
+                    <ul class="card-features">
+                        <li>基本編から応用編まで3段階</li>
+                        <li>セキュリティ対策を重視</li>
+                        <li>AI活用のテクニック</li>
+                        <li>コード例と解説付き</li>
+                    </ul>
+                    <a href="gas-best-practices.html" class="card-button">お作法を見る</a>
+                    <a href="https://raw.githubusercontent.com/myn0306/gas-learning-resources/main/gas-best-practices.html" class="card-button secondary">ダウンロード</a>
+                </div>
+
+                <!-- 関数お作法 -->
+                <div class="resource-card">
+                    <span class="card-icon">📊</span>
+                    <h3 class="card-title">Googleスプレッドシート関数<br>お作法一覧表</h3>
+                    <p class="card-description">
+                        スプレッドシート関数の効率的な使い方を18項目で解説。初心者からJavaScript経験者まで対応。
+                    </p>
+                    <ul class="card-features">
+                        <li>初歩から発展まで段階的構成</li>
+                        <li>パフォーマンス最適化のコツ</li>
+                        <li>JavaScript開発者向けの解説</li>
+                        <li>良い例・悪い例の比較</li>
+                    </ul>
+                    <a href="sheets-functions-guide.html" class="card-button">お作法を見る</a>
+                    <a href="https://raw.githubusercontent.com/myn0306/gas-learning-resources/main/sheets-functions-guide.html" class="card-button secondary">ダウンロード</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
