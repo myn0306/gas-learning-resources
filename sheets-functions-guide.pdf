@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googleスプレッドシート関数 お作法一覧表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Meiryo', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #4285f4 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75%);
+            height: 8px;
+        }
+
+        .title-section {
+            padding: 40px;
+            text-align: center;
+            border-bottom: 2px solid #f1f3f4;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4285f4;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #5f6368;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaed 100%);
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 5px;
+        }
+
+        .section-description {
+            font-size: 1rem;
+            color: #5f6368;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+
+        .item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e8eaed;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .basic .item {
+            border-left: 6px solid #34a853;
+        }
+
+        .intermediate .item {
+            border-left: 6px solid #fbbc04;
+        }
+
+        .advanced .item {
+            border-left: 6px solid #4285f4;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .item-number {
+            background: #4285f4;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .basic .item-number {
+            background: #34a853;
+        }
+
+        .intermediate .item-number {
+            background: #fbbc04;
+        }
+
+        .advanced .item-number {
+            background: #4285f4;
+        }
+
+        .item-title {
+            font-weight: 700;
+            color: #3c4043;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            flex-grow: 1;
+            margin-left: 12px;
+        }
+
+        .priority-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-required {
+            background: #fce8e6;
+            color: #d73025;
+        }
+
+        .priority-recommended {
+            background: #fef7e0;
+            color: #ea8600;
+        }
+
+        .priority-optional {
+            background: #e8f0fe;
+            color: #1a73e8;
+        }
+
+        .item-description {
+            color: #5f6368;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        .good-example {
+            border-left: 4px solid #34a853;
+            background: #f0f9ff;
+        }
+
+        .bad-example {
+            border-left: 4px solid #ea4335;
+            background: #fef7f0;
+        }
+
+        .comparison-example {
+            border-left: 4px solid #4285f4;
+            background: #e8f0fe;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            color: #5f6368;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #5f6368;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"></div>
+        <div class="logo">📋 Google Sheets</div>
+
+        <div class="title-section">
+            <h1 class="main-title">📋 Googleスプレッドシート関数 お作法一覧表</h1>
+            <p class="subtitle">関数を書く際の重要なポイントを素早く確認できるリファレンスガイド</p>
+        </div>
+
+        <div class="content">
+            <!-- 初歩の初歩 -->
+            <div class="section basic">
+                <div class="section-header">
+                    <span class="section-icon">🟢</span>
+                    <div>
+                        <h2 class="section-title">初歩の初歩（未経験向け）</h2>
+                        <p class="section-description">スプレッドシート関数の基本中の基本</p>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">1</div>
+                            <div class="item-title">「=」から始める</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            数式は必ず = でスタート。これがないと文字列として認識される
+                        </div>
+                        <div class="code-example good-example">✅ 正しい例:
+=A1+B1
+=SUM(A1:A10)
+=IF(A1>10,"大","小")</div>
+                        <div class="code-example bad-example">❌ 間違い例:
+A1+B1 ← 文字列になる
+SUM(A1:A10) ← 計算されない</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">2</div>
+                            <div class="item-title">セルの位置で値を取る</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            A1 は「A列の1行目」を意味。コピーしたときに自動で位置が調整される
+                        </div>
+                        <div class="code-example">基本の参照:
+A1 → A列1行目
+B5 → B列5行目
+A1:C10 → A1からC10までの範囲</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">3</div>
+                            <div class="item-title">固定したいときは $ をつける</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            絶対参照（$A$1）はコピーしても動かない。これを知らないと計算がズレる
+                        </div>
+                        <div class="code-example">相対参照（動く）:
+=A1*B1 をコピー → =A2*B2, =A3*B3...
+
+絶対参照（固定）:
+=$A$1*B1 をコピー → =$A$1*B2, =$A$1*B3...</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">4</div>
+                            <div class="item-title">関数は「名前(中身)」で使う</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            JSの function add(x,y) と同じ構造。関数名の後に括弧で引数を指定
+                        </div>
+                        <div class="code-example">基本的な関数:
+=SUM(A1:A10) → 合計
+=AVERAGE(A1:A10) → 平均
+=COUNT(A1:A10) → 個数</div>
+                        <div class="code-example comparison-example">JSとの比較:
+JS: Math.max(1,2,3)
+スプレッドシート: =MAX(A1:A3)</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">5</div>
+                            <div class="item-title">エラーは IFERROR で隠す</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            #N/A や #DIV/0! が出ても慌てない。IFERROR で適切に処理すると見た目がスッキリ
+                        </div>
+                        <div class="code-example bad-example">エラーが出る例:
+=A1/B1 → B1が0だと #DIV/0!
+=VLOOKUP(...) → 見つからないと #N/A</div>
+                        <div class="code-example good-example">エラー処理:
+=IFERROR(A1/B1, "")
+=IFERROR(VLOOKUP(...), "見つかりません")</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 少し慣れてきたら -->
+            <div class="section intermediate">
+                <div class="section-header">
+                    <span class="section-icon">🟡</span>
+                    <div>
+                        <h2 class="section-title">少し慣れてきたら</h2>
+                        <p class="section-description">効率的な関数活用テクニック</p>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">6</div>
+                            <div class="item-title">ARRAYFORMULA で一括処理</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            同じ式をコピペする代わりに、自動で下まで広がる。JSでループを書く代わりの効率的な方法
+                        </div>
+                        <div class="code-example bad-example">❌ 非効率な例:
+A2に =B2*C2
+A3に =B3*C3
+A4に =B4*C4... (延々とコピペ)</div>
+                        <div class="code-example good-example">✅ ARRAYFORMULA使用:
+=ARRAYFORMULA(B2:B*C2:C)
+→ 一発で全行に適用される</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">7</div>
+                            <div class="item-title">条件分岐は IFS を使う</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            JSの if ... else if ... と同じ発想。複数条件をスッキリ書ける
+                        </div>
+                        <div class="code-example bad-example">IF のネスト地獄:
+=IF(A2="赤","危険",IF(A2="黄","注意",IF(A2="緑","安全","不明")))</div>
+                        <div class="code-example good-example">IFS でスッキリ:
+=IFS(A2="赤","危険", A2="黄","注意", A2="緑","安全", TRUE,"不明")</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">8</div>
+                            <div class="item-title">INDEX + MATCH で安全検索</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            VLOOKUPは列を増やすとズレる弱点あり。INDEX+MATCHなら列構成が変わっても安全
+                        </div>
+                        <div class="code-example bad-example">VLOOKUP（脆弱）:
+=VLOOKUP("田中",A:C,3,FALSE)
+→ 列を挿入すると番号がズレる</div>
+                        <div class="code-example good-example">INDEX+MATCH（安全）:
+=INDEX(C:C, MATCH("田中", A:A, 0))
+→ 列構成が変わっても動作する</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">9</div>
+                            <div class="item-title">QUERY関数でSQL風に</div>
+                            <span class="priority-badge priority-optional">任意</span>
+                        </div>
+                        <div class="item-description">
+                            JSで filter や map をするイメージ。複雑な条件でのデータ抽出が可能
+                        </div>
+                        <div class="code-example bad-example">列番号指定（危険）:
+=QUERY(A:C,"select Col2 where Col3='条件'")</div>
+                        <div class="code-example good-example">列名指定（安全）:
+=QUERY(A:C,"select 名前 where 年齢 > 20")
+=QUERY(A:C,"select * where 部署 = '営業' order by 売上 desc")</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">10</div>
+                            <div class="item-title">範囲は「必要な分だけ」指定</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            A:A（全列）は重くなる原因。適切な範囲指定で処理速度が向上
+                        </div>
+                        <div class="code-example bad-example">重い指定:
+=SUM(A:A) → 100万行チェック
+=VLOOKUP("田中",A:Z,3,FALSE)</div>
+                        <div class="code-example good-example">軽い指定:
+=SUM(A2:A1000) → 必要な分だけ
+=VLOOKUP("田中",A2:C1000,3,FALSE)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSが分かる人向けの発展編 -->
+            <div class="section advanced">
+                <div class="section-header">
+                    <span class="section-icon">🔵</span>
+                    <div>
+                        <h2 class="section-title">JSが分かる人向けの発展編</h2>
+                        <p class="section-description">プログラミング思考を活かした高度なテクニック</p>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">11</div>
+                            <div class="item-title">補助列で「途中変数」を作る</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            JSで let result = ...; return result; と同じ。数式を1セルに詰め込まず、段階的に処理
+                        </div>
+                        <div class="code-example bad-example">ワンライナー地獄:
+=IF(AND(A2<>"",B2<>""),IF(C2>AVERAGE(C:C),A2&"(優秀)",A2),"")</div>
+                        <div class="code-example good-example">段階的処理:
+D列: =IF(AND(A2<>"",B2<>""),TRUE,FALSE) ← 入力チェック
+E列: =IF(C2>AVERAGE(C:C),"優秀","普通") ← 評価
+F列: =IF(D2,A2&"("&E2&")","") ← 最終結果</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">12</div>
+                            <div class="item-title">日付・時間は文字列化して揃える</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            JSの toISOString() みたいにフォーマット統一。データの一貫性が保たれる
+                        </div>
+                        <div class="code-example">日付フォーマット:
+=TEXT(A2,"yyyy-mm-dd") → 2024-03-15
+=TEXT(A2,"yyyy年mm月dd日") → 2024年03月15日
+=TEXT(NOW(),"yyyy-mm-dd hh:mm:ss")</div>
+                        <div class="code-example comparison-example">JSとの比較:
+new Date().toISOString().split('T')[0]
+→ "2024-03-15"</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">13</div>
+                            <div class="item-title">関数は組み合わせすぎない</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            ネストしすぎると「ワンライナー地獄」になる。JSと同じで「読みやすさ ＞ 短さ」を重視
+                        </div>
+                        <div class="code-example bad-example">読めない例:
+=IF(ISERROR(INDEX(SPLIT(SUBSTITUTE(A2," ","♪"),"♪"),1,2)),"",TRIM(INDEX(SPLIT(SUBSTITUTE(A2," ","♪"),"♪"),1,2)))</div>
+                        <div class="code-example good-example">読みやすい例:
+B列: =SUBSTITUTE(A2," ","♪") ← スペース置換
+C列: =SPLIT(B2,"♪") ← 分割
+D列: =IF(COLUMNS(C2:C2)>=2,INDEX(C2:C2,1,2),"") ← 2番目取得</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">14</div>
+                            <div class="item-title">入力・計算・出力を分ける</div>
+                            <span class="priority-badge priority-recommended">推奨</span>
+                        </div>
+                        <div class="item-description">
+                            JSのMVCっぽく役割分担。保守性と可読性が大幅に向上
+                        </div>
+                        <div class="code-example">役割分担の例:
+A-C列: 入力データ（名前、基本給、手当）
+D-F列: 計算列（税金、保険、控除合計）
+G-H列: 出力列（手取り、表示用フォーマット）</div>
+                        <div class="code-example comparison-example">JSのMVC的思考:
+Model: 入力データ
+Controller: 計算ロジック
+View: 表示用フォーマット</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">15</div>
+                            <div class="item-title">IMPORTRANGE を整理する</div>
+                            <span class="priority-badge priority-optional">任意</span>
+                        </div>
+                        <div class="item-description">
+                            参照元IDをメモ用シートに置く。JSの「configファイルにまとめる」発想と同じ
+                        </div>
+                        <div class="code-example bad-example">直書き（管理困難）:
+=IMPORTRANGE("1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms","A1:E")</div>
+                        <div class="code-example good-example">設定シートで管理:
+設定シート A1: 売上データID
+設定シート B1: 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms
+=IMPORTRANGE(設定!B1,"A1:E")</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">16</div>
+                            <div class="item-title">条件付き書式で視覚的に補強</div>
+                            <span class="priority-badge priority-optional">任意</span>
+                        </div>
+                        <div class="item-description">
+                            数字の大小を色で分けると関数の結果が直感的に見える。データの傾向が一目で分かる
+                        </div>
+                        <div class="code-example">条件付き書式の活用:
+• 売上目標達成: 緑色
+• 80%以上: 黄色
+• 80%未満: 赤色
+
+数式: =$C2>=目標!$B$1 → 緑
+数式: =$C2>=目標!$B$1*0.8 → 黄</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">17</div>
+                            <div class="item-title">ロジックはAIに翻訳させる</div>
+                            <span class="priority-badge priority-optional">任意</span>
+                        </div>
+                        <div class="item-description">
+                            複雑な数式はAIに「JSっぽく書くとどうなる？」と聞く。理解しやすくなり、デバッグも容易
+                        </div>
+                        <div class="code-example">AI活用例:
+「この数式をJavaScriptで書くとどうなりますか？」
+=IF(AND(A2<>"",B2>0),A2*B2*1.1,"")
+
+「JSで書いた処理をスプレッドシート関数にして」
+const result = name && score > 0 ? name * score * 1.1 : "";</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">18</div>
+                            <div class="item-title">関数の限界を見極める</div>
+                            <span class="priority-badge priority-required">必須</span>
+                        </div>
+                        <div class="item-description">
+                            何千行以上の重い処理や複雑な分岐は関数ではなくGASに移す。JSを書ける人ならスムーズに切り替え可能
+                        </div>
+                        <div class="code-example">関数 → GAS切り替えの目安:
+• 処理行数: 1000行以上
+• ネスト深度: 5階層以上
+• 外部API連携が必要
+• 複雑な条件分岐（10個以上）
+• リアルタイム更新が必要</div>
+                        <div class="code-example comparison-example">GASでの実装例:
+function processLargeData() {
+  const data = sheet.getDataRange().getValues();
+  // 複雑な処理をJSで記述
+}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            効率的なスプレッドシート関数活用により、データ分析と業務効率化を実現しましょう！<br>
+            複雑な処理が必要な場合は、適切にGASへの移行を検討してください。
+        </div>
+    </div>
+</body>
+</html>
